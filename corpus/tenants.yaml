@@ -1,0 +1,42 @@
+# Synthetic tenants and users. Every company, person and figure here is fictional.
+# Users are the dev identity source for `cli token` / `cli ask`; in production the
+# claims would come from your IdP (Okta, Entra ID, Auth0...).
+tenants:
+  - id: acme
+    name: Acme Robotics
+  - id: halcyon
+    name: Halcyon Health
+
+users:
+  # --- Acme Robotics ---
+  - id: alice
+    tenant: acme
+    groups: [all, engineering]
+  - id: bob
+    tenant: acme
+    groups: [all, hr]
+  - id: carol
+    tenant: acme
+    groups: [all, finance, exec]
+  - id: dave
+    tenant: acme
+    groups: [all]
+  - id: erin
+    tenant: acme
+    groups: [all, legal]
+  # --- Halcyon Health ---
+  - id: hana
+    tenant: halcyon
+    groups: [all, engineering]
+  - id: ivan
+    tenant: halcyon
+    groups: [all, hr]
+  - id: jin
+    tenant: halcyon
+    groups: [all, finance]
+  - id: kai
+    tenant: halcyon
+    groups: [all]
+  - id: lena
+    tenant: halcyon
+    groups: [all, research]
