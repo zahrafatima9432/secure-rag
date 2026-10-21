@@ -1,0 +1,29 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: securerag
+        ports: ["5434:5432"]
+        options: >-
+          --health-cmd "pg_isready -U admin -d securerag"
+          --health-interval 2s --health-retries 30
+    env:
+      ADMIN_DSN: postgresql://admin:admin@localhost:5434/securerag
+      APP_DSN: postgresql://rag_app:rag_app_pw@localhost:5434/securerag
+      RAG_APP_PASSWORD: rag_app_pw
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest -v
