@@ -1,0 +1,19 @@
+services:
+  db:
+    # pgvector >= 0.8 is required for HNSW iterative index scans.
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: securerag
+    ports:
+      - "5434:5432"   # 5434 so it doesn't collide with other local Postgres containers
+    volumes:
+      - securerag-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d securerag"]
+      interval: 2s
+      retries: 30
+
+volumes:
+  securerag-data:
