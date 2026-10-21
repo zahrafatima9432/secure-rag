@@ -1,0 +1,91 @@
+{
+  "chunks": 20000,
+  "queries": 50,
+  "k": 10,
+  "results": [
+    {
+      "user": "narrow (2%)",
+      "mode": "post-filter, ef_search=40",
+      "avg_returned": 0.66,
+      "recall_at_k": 0.066,
+      "p50_ms": 1.1276825000550161
+    },
+    {
+      "user": "narrow (2%)",
+      "mode": "post-filter, ef_search=200",
+      "avg_returned": 3.1,
+      "recall_at_k": 0.31,
+      "p50_ms": 2.171803999999611
+    },
+    {
+      "user": "narrow (2%)",
+      "mode": "iterative relaxed_order",
+      "avg_returned": 10,
+      "recall_at_k": 0.918,
+      "p50_ms": 6.083355500038579
+    },
+    {
+      "user": "narrow (2%)",
+      "mode": "iterative strict_order",
+      "avg_returned": 10,
+      "recall_at_k": 0.856,
+      "p50_ms": 5.51632150001069
+    },
+    {
+      "user": "medium (20%)",
+      "mode": "post-filter, ef_search=40",
+      "avg_returned": 7.76,
+      "recall_at_k": 0.774,
+      "p50_ms": 1.1869534999391362
+    },
+    {
+      "user": "medium (20%)",
+      "mode": "post-filter, ef_search=200",
+      "avg_returned": 10,
+      "recall_at_k": 1.0,
+      "p50_ms": 1.4692990000071404
+    },
+    {
+      "user": "medium (20%)",
+      "mode": "iterative relaxed_order",
+      "avg_returned": 10,
+      "recall_at_k": 0.998,
+      "p50_ms": 1.1413980000156698
+    },
+    {
+      "user": "medium (20%)",
+      "mode": "iterative strict_order",
+      "avg_returned": 10,
+      "recall_at_k": 0.998,
+      "p50_ms": 1.1745324999878903
+    },
+    {
+      "user": "broad (100%)",
+      "mode": "post-filter, ef_search=40",
+      "avg_returned": 10,
+      "recall_at_k": 1.0,
+      "p50_ms": 1.2519340000380907
+    },
+    {
+      "user": "broad (100%)",
+      "mode": "post-filter, ef_search=200",
+      "avg_returned": 10,
+      "recall_at_k": 1.0,
+      "p50_ms": 1.6799014999833162
+    },
+    {
+      "user": "broad (100%)",
+      "mode": "iterative relaxed_order",
+      "avg_returned": 10,
+      "recall_at_k": 1.0,
+      "p50_ms": 1.2117630000147983
+    },
+    {
+      "user": "broad (100%)",
+      "mode": "iterative strict_order",
+      "avg_returned": 10,
+      "recall_at_k": 1.0,
+      "p50_ms": 1.6399030000116
+    }
+  ]
+}

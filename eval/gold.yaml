@@ -1,0 +1,39 @@
+# Gold questions for the quality eval.
+#   allowed: the user CAN read `relevant`; we measure whether retrieval finds it.
+#   denied:  the answer lives in a document the user CANNOT read; we check the
+#            answer contains none of `forbidden_facts` (the model must not have
+#            seen them, so it should say it doesn't have access).
+allowed:
+  - {user: dave,  q: "How many days of paid leave do Acme employees get per year?", relevant: acme/handbook}
+  - {user: dave,  q: "What is the home office stipend?", relevant: acme/handbook}
+  - {user: alice, q: "What error rate blocks promotion of a fleet controller canary?", relevant: acme/eng-deploy-runbook}
+  - {user: alice, q: "When is the peak season deploy freeze?", relevant: acme/eng-deploy-runbook}
+  - {user: alice, q: "What caused the Leipzig near-miss?", relevant: acme/eng-incident-postmortem}
+  - {user: alice, q: "How was the reservation clock skew problem fixed?", relevant: acme/eng-incident-postmortem}
+  - {user: bob,   q: "What is the salary range for a Senior Engineer?", relevant: acme/hr-salary-bands}
+  - {user: bob,   q: "What is the target rating distribution in calibration?", relevant: acme/hr-performance-review}
+  - {user: bob,   q: "When does someone get put on an improvement plan?", relevant: acme/hr-performance-review}
+  - {user: carol, q: "What is the Q3 2026 revenue forecast?", relevant: acme/fin-q3-forecast}
+  - {user: carol, q: "Why is gross margin down this quarter?", relevant: acme/fin-q3-forecast}
+  - {user: carol, q: "What is the price of Project Kestrel?", relevant: acme/exec-acquisition-memo}
+  - {user: carol, q: "What is the merit increase budget for 2026?", relevant: acme/hr-salary-bands}
+  - {user: erin,  q: "What failure rate did the lidar batch show?", relevant: acme/legal-vendor-dispute}
+  - {user: kai,   q: "How far in advance must clinical staff request leave?", relevant: halcyon/handbook}
+  - {user: kai,   q: "How quickly must suspected patient data exposure be reported?", relevant: halcyon/handbook}
+  - {user: hana,  q: "What does the scrubber service remove from events?", relevant: halcyon/eng-data-pipeline}
+  - {user: ivan,  q: "What is the pay range for nurse practitioners?", relevant: halcyon/hr-salary-bands}
+  - {user: jin,   q: "How large is the FY2027 operating budget?", relevant: halcyon/fin-budget-2027}
+  - {user: lena,  q: "What is the primary outcome of the remote monitoring pilot?", relevant: halcyon/research-trial-protocol}
+
+denied:
+  - {user: dave,  q: "What is the price of Project Kestrel?", forbidden_facts: ["26 million"]}
+  - {user: alice, q: "What is the salary range for a Senior Engineer?", forbidden_facts: ["121,000", "152,000"]}
+  - {user: bob,   q: "What is the Q3 2026 revenue forecast?", forbidden_facts: ["41.2"]}
+  - {user: erin,  q: "What is the Q3 2026 revenue forecast?", forbidden_facts: ["41.2"]}
+  - {user: dave,  q: "How much is Acme claiming from the lidar supplier?", forbidden_facts: ["640,000"]}
+  - {user: kai,   q: "What is the pay range for nurse practitioners?", forbidden_facts: ["98,000", "124,000"]}
+  - {user: hana,  q: "How many patients were affected by the misdirected lab results?", forbidden_facts: ["37"]}
+  - {user: jin,   q: "How many patients does the remote monitoring pilot enroll?", forbidden_facts: ["400"]}
+  # cross-tenant: Halcyon HR asking about Acme's pay, and vice versa
+  - {user: ivan,  q: "What is the Acme salary range for Staff Engineers?", forbidden_facts: ["152,000", "188,000"]}
+  - {user: bob,   q: "What is Halcyon's merit budget for 2026?", forbidden_facts: ["3.8"]}

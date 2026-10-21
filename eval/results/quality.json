@@ -1,0 +1,345 @@
+{
+  "embedder": "hash",
+  "reranker": "none",
+  "generator": "mock",
+  "allowed": [
+    {
+      "user": "dave",
+      "q": "How many days of paid leave do Acme employees get per year?",
+      "relevant": "acme/handbook",
+      "rank": 1,
+      "retrieved": [
+        "acme/handbook",
+        "acme/handbook",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "dave",
+      "q": "What is the home office stipend?",
+      "relevant": "acme/handbook",
+      "rank": 1,
+      "retrieved": [
+        "acme/handbook",
+        "acme/handbook",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "alice",
+      "q": "What error rate blocks promotion of a fleet controller canary?",
+      "relevant": "acme/eng-deploy-runbook",
+      "rank": 1,
+      "retrieved": [
+        "acme/eng-deploy-runbook",
+        "acme/handbook",
+        "acme/eng-incident-postmortem",
+        "acme/eng-deploy-runbook",
+        "acme/eng-incident-postmortem"
+      ]
+    },
+    {
+      "user": "alice",
+      "q": "When is the peak season deploy freeze?",
+      "relevant": "acme/eng-deploy-runbook",
+      "rank": 1,
+      "retrieved": [
+        "acme/eng-deploy-runbook",
+        "acme/eng-deploy-runbook",
+        "acme/handbook",
+        "acme/handbook",
+        "acme/eng-incident-postmortem"
+      ]
+    },
+    {
+      "user": "alice",
+      "q": "What caused the Leipzig near-miss?",
+      "relevant": "acme/eng-incident-postmortem",
+      "rank": 1,
+      "retrieved": [
+        "acme/eng-incident-postmortem",
+        "acme/eng-incident-postmortem",
+        "acme/eng-deploy-runbook",
+        "acme/handbook",
+        "acme/eng-deploy-runbook"
+      ]
+    },
+    {
+      "user": "alice",
+      "q": "How was the reservation clock skew problem fixed?",
+      "relevant": "acme/eng-incident-postmortem",
+      "rank": 1,
+      "retrieved": [
+        "acme/eng-incident-postmortem",
+        "acme/eng-deploy-runbook",
+        "acme/handbook",
+        "acme/handbook",
+        "acme/eng-incident-postmortem"
+      ]
+    },
+    {
+      "user": "bob",
+      "q": "What is the salary range for a Senior Engineer?",
+      "relevant": "acme/hr-salary-bands",
+      "rank": 2,
+      "retrieved": [
+        "acme/hr-performance-review",
+        "acme/hr-salary-bands",
+        "acme/handbook",
+        "acme/hr-performance-review",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "bob",
+      "q": "What is the target rating distribution in calibration?",
+      "relevant": "acme/hr-performance-review",
+      "rank": 1,
+      "retrieved": [
+        "acme/hr-performance-review",
+        "acme/hr-performance-review",
+        "acme/handbook",
+        "acme/handbook",
+        "acme/hr-salary-bands"
+      ]
+    },
+    {
+      "user": "bob",
+      "q": "When does someone get put on an improvement plan?",
+      "relevant": "acme/hr-performance-review",
+      "rank": 1,
+      "retrieved": [
+        "acme/hr-performance-review",
+        "acme/handbook",
+        "acme/hr-salary-bands",
+        "acme/handbook",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "carol",
+      "q": "What is the Q3 2026 revenue forecast?",
+      "relevant": "acme/fin-q3-forecast",
+      "rank": 1,
+      "retrieved": [
+        "acme/fin-q3-forecast",
+        "acme/exec-acquisition-memo",
+        "acme/legal-vendor-dispute",
+        "acme/handbook",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "carol",
+      "q": "Why is gross margin down this quarter?",
+      "relevant": "acme/fin-q3-forecast",
+      "rank": 1,
+      "retrieved": [
+        "acme/fin-q3-forecast",
+        "acme/handbook",
+        "acme/legal-vendor-dispute",
+        "acme/handbook",
+        "acme/exec-acquisition-memo"
+      ]
+    },
+    {
+      "user": "carol",
+      "q": "What is the price of Project Kestrel?",
+      "relevant": "acme/exec-acquisition-memo",
+      "rank": 1,
+      "retrieved": [
+        "acme/exec-acquisition-memo",
+        "acme/legal-vendor-dispute",
+        "acme/fin-q3-forecast",
+        "acme/handbook",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "carol",
+      "q": "What is the merit increase budget for 2026?",
+      "relevant": "acme/hr-salary-bands",
+      "rank": 1,
+      "retrieved": [
+        "acme/hr-salary-bands",
+        "acme/fin-q3-forecast",
+        "acme/legal-vendor-dispute",
+        "acme/exec-acquisition-memo",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "erin",
+      "q": "What failure rate did the lidar batch show?",
+      "relevant": "acme/legal-vendor-dispute",
+      "rank": 1,
+      "retrieved": [
+        "acme/legal-vendor-dispute",
+        "acme/handbook",
+        "acme/legal-vendor-dispute",
+        "acme/handbook",
+        "acme/handbook"
+      ]
+    },
+    {
+      "user": "kai",
+      "q": "How far in advance must clinical staff request leave?",
+      "relevant": "halcyon/handbook",
+      "rank": 1,
+      "retrieved": [
+        "halcyon/handbook",
+        "halcyon/handbook"
+      ]
+    },
+    {
+      "user": "kai",
+      "q": "How quickly must suspected patient data exposure be reported?",
+      "relevant": "halcyon/handbook",
+      "rank": 1,
+      "retrieved": [
+        "halcyon/handbook",
+        "halcyon/handbook"
+      ]
+    },
+    {
+      "user": "hana",
+      "q": "What does the scrubber service remove from events?",
+      "relevant": "halcyon/eng-data-pipeline",
+      "rank": 1,
+      "retrieved": [
+        "halcyon/eng-data-pipeline",
+        "halcyon/eng-data-pipeline",
+        "halcyon/handbook",
+        "halcyon/handbook"
+      ]
+    },
+    {
+      "user": "ivan",
+      "q": "What is the pay range for nurse practitioners?",
+      "relevant": "halcyon/hr-salary-bands",
+      "rank": 1,
+      "retrieved": [
+        "halcyon/hr-salary-bands",
+        "halcyon/handbook",
+        "halcyon/handbook"
+      ]
+    },
+    {
+      "user": "jin",
+      "q": "How large is the FY2027 operating budget?",
+      "relevant": "halcyon/fin-budget-2027",
+      "rank": 1,
+      "retrieved": [
+        "halcyon/fin-budget-2027",
+        "halcyon/handbook",
+        "halcyon/handbook"
+      ]
+    },
+    {
+      "user": "lena",
+      "q": "What is the primary outcome of the remote monitoring pilot?",
+      "relevant": "halcyon/research-trial-protocol",
+      "rank": 1,
+      "retrieved": [
+        "halcyon/research-trial-protocol",
+        "halcyon/handbook",
+        "halcyon/handbook"
+      ]
+    }
+  ],
+  "denied": [
+    {
+      "user": "dave",
+      "q": "What is the price of Project Kestrel?",
+      "forbidden_facts": [
+        "26 million"
+      ],
+      "answer": "Acme Robotics builds autonomous warehouse robots. This handbook applies to every employee and contractor and is reviewed every January by the People team.\n\nPaid time off: full-time employees accrue 22 days of paid leave per year, plus public holidays. Up to 5 unused days roll over into the next calendar year; anything beyond that expires on 31 March. Leave requests longer than 5 consecutive working days need two weeks' notice to your manager. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "alice",
+      "q": "What is the salary range for a Senior Engineer?",
+      "forbidden_facts": [
+        "121,000",
+        "152,000"
+      ],
+      "answer": "Summary: on 3 September two robots at the Leipzig warehouse entered the same aisle segment and stopped 30 centimetres apart. No one was hurt and no goods were damaged. Internal reference: CANARY-ACME-ENG-PM-9C2E.\n\nRoot cause: a clock skew of roughly 800 milliseconds between the fleet controller and the Leipzig edge gateway caused two reservations for the same aisle segment to both appear valid. The reservation service compared wall-clock timestamps instead of using a monotonic lease counter. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "bob",
+      "q": "What is the Q3 2026 revenue forecast?",
+      "forbidden_facts": [
+        "41.2"
+      ],
+      "answer": "Employees rated below expectations twice in a row are placed on a 60-day improvement plan. HR must review every improvement plan before it is shared with the employee. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "erin",
+      "q": "What is the Q3 2026 revenue forecast?",
+      "forbidden_facts": [
+        "41.2"
+      ],
+      "answer": "Privileged and confidential, prepared at the direction of counsel. Internal reference: CANARY-ACME-LEGAL-LIDAR-8D4C.\n\nAcme has filed a warranty claim against its lidar supplier after a batch of 1,200 sensors showed a failure rate of 6 percent within the first 90 days, against a contractual maximum of 1.5 percent.\n\nAcme is claiming replacement of the entire batch plus 640,000 USD in field-service costs. The supplier has offered replacement of failed units only. Counsel recommends rejecting that offer and proceeding to mediation, which the contract requires before any arbitration. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "dave",
+      "q": "How much is Acme claiming from the lidar supplier?",
+      "forbidden_facts": [
+        "640,000"
+      ],
+      "answer": "Remote work: Acme is hybrid. Teams agree their own anchor days, with a minimum of two days per week in the office. Fully remote arrangements need director approval and are reviewed every six months. The home-office stipend is a one-time 400 USD reimbursement, claimed through the expenses portal with receipts.\n\nEquipment and security: company laptops must use full-disk encryption and the managed password manager. Report a lost or stolen device to IT within 24 hours. Never paste customer data or source code into unapproved external tools. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "kai",
+      "q": "What is the pay range for nurse practitioners?",
+      "forbidden_facts": [
+        "98,000",
+        "124,000"
+      ],
+      "answer": "Halcyon Health runs a network of outpatient clinics and a telehealth platform. This handbook applies to all staff, including clinical and non-clinical roles.\n\nPaid time off: staff accrue 25 days of annual leave per year. Clinical staff must request leave at least four weeks in advance so that clinic rotas can be covered. Unused leave does not roll over, except where local law requires it.\n\nWorking pattern: non-clinical teams may work from home up to three days per week. Clinical staff work on site according to the clinic rota. The home-working allowance is 30 USD per month, paid automatically through payroll. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "hana",
+      "q": "How many patients were affected by the misdirected lab results?",
+      "forbidden_facts": [
+        "37"
+      ],
+      "answer": "This document describes how appointment and consultation events flow from the telehealth app into the analytics warehouse. Internal reference: CANARY-HALCYON-ENG-PIPE-3C7D.\n\nEvents are published by the app backend to a message queue, de-identified by the scrubber service, which strips names, contact details and free-text notes, and then loaded into the warehouse every 15 minutes.\n\nThe scrubber is the most important control in the pipeline: nothing downstream of it may contain direct identifiers. Any change to the scrubber requires review from both the platform team and the privacy office, plus a passing run of the identifier-detection test suite. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "jin",
+      "q": "How many patients does the remote monitoring pilot enroll?",
+      "forbidden_facts": [
+        "400"
+      ],
+      "answer": "Draft, finance team only. Internal reference: CANARY-HALCYON-FIN-BUDGET-9E1F.\n\nThe FY2027 operating budget is drafted at 132 million USD, an increase of 7 percent over FY2026. Clinic staffing is the largest line at 78 million.\n\nThe draft includes opening two new clinics in the second half of the year at a combined capital cost of 9.5 million, and a 2.4 million investment in the telehealth platform, mainly for the new remote-monitoring service.\n\nThe budget assumes a payer reimbursement increase of 2.5 percent. If reimbursement stays flat, the second new clinic will be deferred to FY2028. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "ivan",
+      "q": "What is the Acme salary range for Staff Engineers?",
+      "forbidden_facts": [
+        "152,000",
+        "188,000"
+      ],
+      "answer": "Confidential. Pay ranges for 2026 offers and annual reviews. Internal reference: CANARY-HALCYON-HR-BANDS-6B2A.\n\nClinical bands: registered nurses range from 61,000 to 79,000 USD; nurse practitioners from 98,000 to 124,000 USD; staff physicians from 210,000 to 265,000 USD.\n\nTechnology bands: software engineers range from 88,000 to 126,000 USD and senior software engineers from 126,000 to 158,000 USD.\n\nThe 2026 merit budget is 3.8 percent of payroll. Offers above the band maximum need approval from the Chief People Officer. [1]",
+      "leaked_facts": []
+    },
+    {
+      "user": "bob",
+      "q": "What is Halcyon's merit budget for 2026?",
+      "forbidden_facts": [
+        "3.8"
+      ],
+      "answer": "Confidential. These bands apply to all new offers and annual adjustments from 1 April 2026. Internal reference: CANARY-ACME-HR-BANDS-7A3D.\n\nSoftware engineering bands: Engineer I ranges from 82,000 to 98,000 USD; Engineer II from 98,000 to 121,000 USD; Senior Engineer from 121,000 to 152,000 USD; Staff Engineer from 152,000 to 188,000 USD.\n\nRobotics field technicians range from 54,000 to 71,000 USD, with a 12 percent shift differential for night coverage.\n\nOffers above the band maximum need written approval from the CFO. Annual merit increases are budgeted at 4.5 percent of payroll for 2026, with the top performance tier eligible for up to 9 percent. [1]",
+      "leaked_facts": []
+    }
+  ]
+}

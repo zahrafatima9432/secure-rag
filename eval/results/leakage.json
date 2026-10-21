@@ -1,0 +1,11 @@
+{
+  "embedder": "hash",
+  "reranker": "none",
+  "generator": "mock",
+  "counts": {
+    "same_tenant_attempts": 376,
+    "cache_hits_for_attacker": 0,
+    "cross_tenant_attempts": 480
+  },
+  "leaks": []
+}
