@@ -12,7 +12,7 @@ This is the problem every company hits the moment RAG touches internal data. HR'
 
 ### 1. Leakage: 0 of 856 adversarial queries leaked
 
-Every restricted document carries a unique canary string (e.g. `CANARY-ACME-EXEC-KESTREL-…`). `eval/leakage.py` attacks each document from every user who must not read it. The attacks are the canary itself, the title, the opening of each paragraph, and injection-style prompts. **Before every attack, an authorised user asks the same question, so the semantic cache already holds the privileged answer.** The generator is an extractive mock that echoes its context verbatim, so any restricted chunk that reached it would print its canary.
+Every restricted document carries a unique canary string (e.g. `CANARY-ACME-EXEC-KESTREL-…`). `eval/leakage.py` attacks each document from every user who must not read it. The attacks are the canary itself, the title, the opening of each paragraph, and injection-style prompts. **Before every attack, an authorised user asks the same question, so the semantic cache already holds the privileged answer.** The generator is an extractive mock that echoes its context verbatim, so any restricted chunk that reached it would print its canary. Retrieval uses the real `bge-small-en-v1.5` embedder and `bge-reranker-base` cross-encoder.
 
 | attack | queries | leaks |
 |---|---|---|
@@ -29,24 +29,38 @@ HNSW finds its nearest candidates first and applies filters afterwards. With pgv
 
 | user visibility | mode | results returned | recall@10 | p50 ms |
 |---|---|---|---|---|
-| narrow (2%) | post-filter, ef_search=40 | 0.7/10 | 0.066 | 1.1 |
-| narrow (2%) | post-filter, ef_search=200 | 3.1/10 | 0.310 | 2.2 |
-| narrow (2%) | **iterative relaxed_order** | **10.0/10** | **0.918** | 6.1 |
-| narrow (2%) | iterative strict_order | 10.0/10 | 0.856 | 5.5 |
-| medium (20%) | post-filter, ef_search=40 | 7.8/10 | 0.774 | 1.2 |
-| medium (20%) | iterative relaxed_order | 10.0/10 | 0.998 | 1.1 |
-| broad (100%) | any mode | 10.0/10 | 1.000 | ~1.2 |
+| narrow (2%) | post-filter, ef_search=40 | 0.7/10 | 0.066 | 1.0 |
+| narrow (2%) | post-filter, ef_search=200 | 4.0/10 | 0.404 | 1.5 |
+| narrow (2%) | **iterative relaxed_order** | **10.0/10** | **0.946** | 3.3 |
+| narrow (2%) | iterative strict_order | 10.0/10 | 0.884 | 3.5 |
+| medium (20%) | post-filter, ef_search=40 | 7.8/10 | 0.780 | 0.9 |
+| medium (20%) | post-filter, ef_search=200 | 10.0/10 | 1.000 | 1.2 |
+| medium (20%) | iterative relaxed_order | 10.0/10 | 0.998 | 1.0 |
+| broad (100%) | any mode | 10.0/10 | 1.000 | 0.9–1.2 |
 
-*Full table in `eval/results/`. Measured on PostgreSQL 16 + pgvector 0.8.1; vectors are synthetic and clustered on purpose, which isolates index behaviour from embedding quality.*
+*Full results in `eval/results/filtered_recall.json`. Measured with the `pgvector/pgvector:pg17` Docker image (PostgreSQL 17, pgvector ≥ 0.8) on a Windows laptop. An independent run on PostgreSQL 16 + pgvector 0.8.1 reproduced the same pattern (narrow user: 0.7/10 post-filter → 10/10 iterative). Vectors are synthetic and clustered on purpose, which isolates index behaviour from embedding quality.*
 
 Takeaways:
-- **Raising `ef_search` alone doesn't fix it.** A 5× larger candidate list still returns only 3 of 10 rows for the narrow user.
-- **Iterative index scans (pgvector ≥ 0.8) do fix it**, at roughly 5× latency for very selective filters and no cost for broad ones. Recall for the narrow user is 0.92, not 1.0, because the scan is still approximate. The default here is `relaxed_order` (better recall in this test), re-sorted in a materialised CTE.
+- **Raising `ef_search` alone doesn't fix it.** A 5× larger candidate list still returns only 4 of 10 rows for the narrow user.
+- **Iterative index scans (pgvector ≥ 0.8) do fix it**, at roughly 3× latency for very selective filters (still ~3 ms) and no cost for broad ones. Recall for the narrow user is 0.95, not 1.0, because the scan is still approximate. The default here is `relaxed_order` (better recall in this test), re-sorted in a materialised CTE.
 - **The tenant filter is a selectivity problem too.** While the 20k-chunk test tenant exists, the two real tenants are about 0.1% of the shared index. Without iterative scans, *every* user in a small tenant gets near-empty results. Past a certain scale, give large tenants their own partition or partial index.
 
-### 3. Test suite: 38 tests against a real Postgres
+### 3. Restricted users still get good answers
 
-The security properties live in Postgres, so the tests don't mock it. `pytest` covers RLS, leakage, the audit chain, cache scoping, and auth/API. It runs in about 5 seconds with dependency-free stand-in models, and runs in CI on every push.
+Filtering only helps if the people who *are* allowed still find what they need. `eval/quality.py` asks 20 questions as 10 different users, each about a document that user can read, and reports results per user so that narrow roles aren't hidden inside an average. It also asks 10 questions whose answers live in documents the asker can't read, including two cross-tenant ones.
+
+| | result |
+|---|---|
+| allowed questions, hit@5 / MRR (bge + reranker) | 1.00 / 1.00 for every user |
+| denied questions whose answer contained a forbidden fact | 0 / 10 |
+
+The corpus is small (each user can read 1–5 documents), so hit@5 is an easy bar. The point is that filtering doesn't break answers for restricted roles, not to benchmark retrieval.
+
+**The eval caught a real revocation.** One run showed Bob (HR) failing to find the salary bands. That was because an earlier `revoke acme/hr-salary-bands hr` demo had never been followed by its `grant`. Bob had genuinely lost access, and retrieval correctly stopped returning the document. After `grant`, he was back to 1.00.
+
+### 4. Test suite: 38 tests against a real Postgres
+
+The security properties live in Postgres, so the tests don't mock it. `pytest` covers RLS, leakage, the audit chain, cache scoping, and auth/API. It runs in about 5–8 seconds with dependency-free stand-in models, and runs in CI on every push.
 
 ---
 
@@ -205,4 +219,4 @@ tests/                    38 tests against real Postgres
 - Verify IdP tokens via JWKS (RS256) instead of the demo's shared-secret HS256.
 - Move the cache to Redis or pgvector with the same key structure, so it survives restarts and scales across workers.
 - Partition large tenants, or give them their own index, rather than relying on iterative scans alone.
-- The quality eval is intentionally small. Each user can read 1–5 documents, so hit@5 is easy. Its job is to show that filtering doesn't break answers for restricted roles; retrieval quality at scale is covered in my [production RAG project](https://github.com/zahrafatima9432).
+- The quality eval is intentionally small; retrieval quality at scale is covered in my [production RAG project](https://github.com/zahrafatima9432).
