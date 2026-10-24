@@ -1,6 +1,6 @@
 {
-  "embedder": "hash",
-  "reranker": "none",
+  "embedder": "bge",
+  "reranker": "bge",
   "generator": "mock",
   "counts": {
     "same_tenant_attempts": 376,
